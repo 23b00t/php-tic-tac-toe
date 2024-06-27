@@ -3,8 +3,8 @@
 // === : keine Typumwandlung bei Vergleich
 // Syntax: condition && action 
 session_status() === PHP_SESSION_NONE && session_start();
-include_once 'check_for_win.php';
-include_once 'draw_board.php';
+require_once __DIR__ . '/check_for_win.php';
+require_once __DIR__ . '/draw_board.php';
 
 // Bei POST an verarbeiten.php, rufe init mit POST als Argument auf 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -63,7 +63,8 @@ function saveSign($board, $point, $round) {
 
 function winMsg() {
     // Wenn die Session win true ist schreibe die erste Nachricht in winMsg, andernfalls die zweite
-    $_SESSION["winMsg"] = $_SESSION["win"] == "true"
+    $_SESSION["winMsg"] = 
+        $_SESSION["win"] === "true"
         ? "<h3 class='text-center text-success-emphasis'> Gewinner ist " . $_SESSION["winner"] . "! </h3>"
         : "<h3 class='text-center text-success-emphasis'> Unentschieden! </h3>";
 }
