@@ -22,8 +22,8 @@
         <form action='process.php' method='post'>
           <!-- Rufe init mit der Methode GET in process.php auf -->
           <?php init("GET") ?>
-          <!-- Simuliere POST, wenn der Computer am Zug ist   -->
-          <?php isset($_SESSION["modus"]) && isEven($_SESSION["round"]) && init("POST") ?>
+          <!-- Simuliere POST, wenn der Computer am Zug ist und noch kein Gewinn vorliegt -->
+          <?php isset($_SESSION["modus"]) && isEven($_SESSION["round"]) && !isset($_SESSION["winMsg"]) && init("POST") ?>
         </form>
       </table>
     </div>

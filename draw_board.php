@@ -1,5 +1,6 @@
 <?php
 // INFO: Zeichne das Spielfeld (3x3) und bilde dynamisch den aktuellen Zustand davon ab  
+
 function drawBoard($board) {
     $row = 0;
     $column = 0;
