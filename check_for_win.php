@@ -1,4 +1,5 @@
 <?php 
+// INFO: Überprüfe alle 8 Gewinnkombination 
 function checkForWin($board) {
     // Diagonalen prüfen; bei Match rufe win auf
     // Kann kein Treffer sein, wenn das mittlere Feld leer ist

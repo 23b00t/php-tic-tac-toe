@@ -1,3 +1,5 @@
+<!-- INFO: HTML Struktur des Spielfelds -->
+
 <?php require_once __DIR__ . '/process.php' ?>
 
 <!DOCTYPE html>
@@ -20,6 +22,8 @@
         <form action='process.php' method='post'>
           <!-- Rufe init mit der Methode GET in process.php auf -->
           <?php init("GET") ?>
+          <!-- Simuliere POST, wenn der Computer am Zug ist   -->
+          <?php isset($_SESSION["modus"]) && isEven($_SESSION["round"]) && init("POST") ?>
         </form>
       </table>
     </div>

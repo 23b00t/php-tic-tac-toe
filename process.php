@@ -1,4 +1,8 @@
 <?php
+// INFO: Verarbeitungscontroller
+
+// TODO: Verzögerung nach Computerzug; Problem: Darstellung des Spielerzugs wird verzögert...
+
 // Überprüfe, ob keine Session aktiv ist, dann starte eine  
 // === : keine Typumwandlung bei Vergleich
 // Syntax: condition && action 
@@ -6,6 +10,9 @@ session_status() === PHP_SESSION_NONE && session_start();
 require_once __DIR__ . '/check_for_win.php';
 require_once __DIR__ . '/draw_board.php';
 require_once __DIR__ . '/computer_move.php';
+
+// HACK: Simuliere POST und GET per übergabe als String Argument an run
+// --> Lösung für Züge durch Computergegener
 
 // Bei POST an verarbeiten.php, rufe init mit POST als Argument auf 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -18,6 +25,7 @@ function init($method) {
         $board = $_SESSION["board"];
     } else {
         $board = [["", "", ""], ["", "", ""], ["", "", ""]];
+        // auf -1 runter gegeangen, um ersten POST der die Spielart wählt aufzufangen  
         $round = -1;
     }
     run($board, $round, $method);
@@ -28,7 +36,7 @@ function run($board, $round, $method) {
         // Spielfeld zurücksetzen, wenn entsprechender Button geklickt wurde
         isset($_POST["reset"]) && resetGame();
     
-        // TODO: Prüfe, ob Computergegner gewählt wurde. Falls ja übergebe dies an eine SESSION
+        // TODOen: Prüfe, ob Computergegner gewählt wurde. Falls ja übergebe dies an eine SESSION
         // und mache den ersten Zug.  Andernfalls lade game.php, um das Spiel normal zu beginnen.  
         // Falls die Session bereits gesetzt wurde prüfe, ob der Computer
         // wieder an der Reihe ist ($round.odd?) und mache entweder den nächsten Zug oder nichts.  
@@ -42,7 +50,7 @@ function run($board, $round, $method) {
                 // Computer ist dran? --> computer_move.php
                 // Andernfalls gehe einfach weiter
                 if (isEven($round)) {
-                    [$round, $board] = computerMove($round, $board);
+                    $board = computerMove($round, $board);
                 } else {
                     // WARNING: Duplicated Code detected 
                     $point = array_keys($_POST)[0];
@@ -83,6 +91,7 @@ function run($board, $round, $method) {
     } 
 }
 
+// TODO: Refactor in process_helpers.php (check if isEven() is still in scope of game.php)  
 function saveSign($board, $point, $round) {
     $row_index = (int)$point[0];
     $col_index = (int)$point[2];

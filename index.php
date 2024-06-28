@@ -1,3 +1,5 @@
+<!-- INFO: HTML Struktur der Gegenerwahl Seite -->
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -11,7 +13,9 @@
   
   <body>
     <h2 class="mt-4 text-center"> Tic-Tac-Toe </h2>
-	<!-- TODO: Radio Buttons zum Auswählen, ob gegen Computer gespielt werden soll -->
+    <h4 class="mt-4 text-center"> Wähle einen Gegner: </h4>
+
+	<!-- TODOne Radio Buttons zum Auswählen, ob gegen Computer gespielt werden soll -->
 	<!-- POST an process.php, wo dann das Spiel initialisiert wird   -->
 
     <div class="container mt-4 d-flex justify-content-center align-items-center" >
