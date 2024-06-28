@@ -2,12 +2,9 @@
 // INFO: Zeichne das Spielfeld (3x3) und bilde dynamisch den aktuellen Zustand davon ab  
 
 function drawBoard($board) {
-    $row = 0;
-    $column = 0;
-
-    for ($row=0; $row < 3; $row++) { 
+    for ($row = 0; $row < 3; $row++) { 
         echo "<tr>";
-        for ($column=0; $column < 3; $column++) { 
+        for ($column = 0; $column < 3; $column++) { 
             $position = $row . "-" . $column;
             $sign = $board[$row][$column];
     
@@ -21,9 +18,8 @@ function drawBoard($board) {
                         . (($sign != "" || isset($_SESSION["win"])) ? "disabled" : "") .
                         " type='submit' style='width:120px; height:120px; font-size:10rem;'> $sign </button>
                   </th>";
-        
         }
-    echo "</tr>";
+        echo "</tr>";
     }
 }
 

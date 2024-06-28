@@ -1,6 +1,13 @@
 <?php
+// Ermittelt die Koordinaten des geklickten Buttons und
+// übergibt sie zur Weiterverarbeitung.
+function humanMove($post, $board, $round) {
+    $point = array_keys($post)[0];
+    return saveSign($board, $point, $round);
+}
 
-// TODO: Refactor in process_helpers.php (check if isEven() is still in scope of game.php)  
+// Liest die Koordinaten aus und schreibt Abhänging von der Rundenzahl,
+// also wer dran ist, das entsprechende Zeichen ins Spielfeld. 
 function saveSign($board, $point, $round) {
     $row_index = (int)$point[0];
     $col_index = (int)$point[2];
@@ -8,6 +15,7 @@ function saveSign($board, $point, $round) {
     return $board;
 }
 
+// Erzeugt eine Nachricht über den Spielausgang
 function winMsg() {
     // Wenn die Session win true ist schreibe die erste Nachricht in winMsg, andernfalls die zweite
     $_SESSION["winMsg"] = 
@@ -16,17 +24,23 @@ function winMsg() {
         : "<h3 class='text-center text-success-emphasis'> Unentschieden! </h3>";
 }
 
+// Startet das Spiel neu
 function resetGame() {
     session_unset();
     header("location: index.php");
     exit();
 }
 
+// ruby: #even? ;)
 function isEven($int) {
     return $int % 2 == 0;
 }
 
-// https://craftytechie.com/how-to-copy-array-in-php/
+// Erzuegt einen Clone eines Arrays, auch eines Multidimensionalen.
+// Dies ist nötig um Komplikationen bei der Bewertung der Züge durch
+// den Computer zu vermeiden, die durch mehrfaches verwenden und ändern
+// von Speicher bei einem einfachen verweis auf die Speicherstelle entsteht.
+// thx to: https://craftytechie.com/how-to-copy-array-in-php/ for this perfect solution!
 function clone_array($arr) {
     $clone = array();
     foreach($arr as $k => $v) {
@@ -37,24 +51,3 @@ function clone_array($arr) {
     return $clone;
 }
 
-function humanMove($post, $board, $round) {
-    $point = array_keys($post)[0];
-    return saveSign($board, $point, $round);
-}
-
-function processMove($post, $board, $round) {
-    if (isset($_SESSION["modus"])) {
-        // Computer ist dran? --> computer_move.php
-        // Andernfalls gehe einfach weiter
-        if (isEven($round)) {
-            $board = computerMove($round, $board);
-        } else {
-            $board = humanMove($post, $board, $round);
-        }
-    } else {
-        // Bestimmen welcher Button geklickt wurde und entsprechendes Zeichen 
-        // in Spielfeld Array speichern. Es gibt nur zwei POST Optionen; wenn es 
-        // reset war (guard clause), muss es ein Spielzug sein.  
-        $board = humanMove($post, $board, $round);
-    }
-}

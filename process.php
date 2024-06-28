@@ -37,7 +37,7 @@ function run($board, $round, $method) {
         // Spielfeld zurücksetzen, wenn entsprechender Button geklickt wurde
         isset($_POST["reset"]) && resetGame();
     
-        // TODOen: Prüfe, ob Computergegner gewählt wurde. Falls ja übergebe dies an eine SESSION
+        // Prüfe, ob Computergegner gewählt wurde. Falls ja übergebe dies an eine SESSION
         // und mache den ersten Zug.  Andernfalls lade game.php, um das Spiel normal zu beginnen.  
         // Falls die Session bereits gesetzt wurde prüfe, ob der Computer
         // wieder an der Reihe ist ($round.odd?) und mache entweder den nächsten Zug oder nichts.  

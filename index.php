@@ -15,9 +15,8 @@
     <h2 class="mt-4 text-center"> Tic-Tac-Toe </h2>
     <h4 class="mt-4 text-center"> Wähle einen Gegner: </h4>
 
-	<!-- TODOne Radio Buttons zum Auswählen, ob gegen Computer gespielt werden soll -->
+	<!-- Radio Buttons zum Auswählen, ob gegen Computer gespielt werden soll -->
 	<!-- POST an process.php, wo dann das Spiel initialisiert wird   -->
-
     <div class="container mt-4 d-flex justify-content-center align-items-center" >
       <form method="POST" action="process.php">
         <div class="form-check">
