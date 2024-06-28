@@ -32,15 +32,34 @@ function run($board, $round, $method) {
         // Falls die Session bereits gesetzt wurde prüfe, ob der Computer
         // wieder an der Reihe ist ($round.odd?) und mache entweder den nächsten Zug oder nichts.  
         
+        if (isset($_POST["opponent"])) {
+            if ($_POST["switch"] === "computer") {
+                $_SESSION["modus"] = "computer";
+            }
+        }
+
+        if (isset($_SESSION["modus"])) {
+            // Computer ist dran? --> computer_move.php
+            // Andernfalls gehe einfach weiter
+            if (isEven($round)) {
+                computerMove($round, $board);
+            } else {
+                // WARNING: Duplicated Code detected 
+                $point = array_keys($_POST)[0];
+                $board = saveSign($board, $point, $round);
+            }
+        } else {
+            // Bestimmen welcher Button geklickt wurde und entsprechendes Zeichen 
+            // in Spielfeld Array speichern. Es gibt nur zwei POST Optionen; wenn es 
+            // reset war (guard clause), muss es ein Spielzug sein.  
+            // INFO: Diese Zeilen sind nur Aufzurufen, wenn der Computer nicht dran ist 
+            $point = array_keys($_POST)[0];
+            $board = saveSign($board, $point, $round);
+            // INFO: ---------------------------------------|
+        }
+
         // TODO: Logik um per Zufall zu entscheiden wer das Spiel beginnt  
 
-        // Bestimmen welcher Button geklickt wurde und entsprechendes Zeichen 
-        // in Spielfeld Array speichern. Es gibt nur zwei POST Optionen; wenn es 
-        // reset war (guard clause), muss es ein Spielzug sein.  
-        // INFO: Diese Zeilen sind nur Aufzurufen, wenn der Computer nicht dran ist 
-        $point = array_keys($_POST)[0];
-        $board = saveSign($board, $point, $round);
-        // INFO: ---------------------------------------|
     
         // Nur auf Gewinn prüfen, wenn ein Gewinn möglich ist
         $round > 3 && $board = checkForWin($board);
@@ -66,7 +85,7 @@ function run($board, $round, $method) {
 function saveSign($board, $point, $round) {
     $row_index = (int)$point[0];
     $col_index = (int)$point[2];
-    $board[$row_index][$col_index] = $round % 2 == 0 ? "x" : "o";
+    $board[$row_index][$col_index] = isEven($round) ? "x" : "o";
     return $board;
 }
 
@@ -82,4 +101,8 @@ function resetGame() {
     session_unset();
     header("location: game.php");
     exit();
+}
+
+function isEven($int) {
+    return $int % 2 == 0;
 }
