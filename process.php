@@ -27,11 +27,20 @@ function run($board, $round, $method) {
         // Spielfeld zurücksetzen, wenn entsprechender Button geklickt wurde
         isset($_POST["reset"]) && resetGame();
     
+        // TODO: Prüfe, ob Computergegner gewählt wurde. Falls ja übergebe dies an eine SESSION
+        // und mache den ersten Zug.  Andernfalls lade game.php, um das Spiel normal zu beginnen.  
+        // Falls die Session bereits gesetzt wurde prüfe, ob der Computer
+        // wieder an der Reihe ist ($round.odd?) und mache entweder den nächsten Zug oder nichts.  
+        
+        // TODO: Logik um per Zufall zu entscheiden wer das Spiel beginnt  
+
         // Bestimmen welcher Button geklickt wurde und entsprechendes Zeichen 
         // in Spielfeld Array speichern. Es gibt nur zwei POST Optionen; wenn es 
         // reset war (guard clause), muss es ein Spielzug sein.  
+        // INFO: Diese Zeilen sind nur Aufzurufen, wenn der Computer nicht dran ist 
         $point = array_keys($_POST)[0];
         $board = saveSign($board, $point, $round);
+        // INFO: ---------------------------------------|
     
         // Nur auf Gewinn prüfen, wenn ein Gewinn möglich ist
         $round > 3 && $board = checkForWin($board);
@@ -47,9 +56,9 @@ function run($board, $round, $method) {
         // Gib bei Gewinn oder Spielende (Unentschieden) eine entsprechende Mitteilung aus
         isset($_SESSION["win"]) && winMsg(); 
         
-        header("location: index.php");
+        header("location: game.php");
     } else {
-        // Nach jedem GET auf index.php
+        // Nach jedem GET auf game.php
         drawBoard($board);
     } 
 }
@@ -71,6 +80,6 @@ function winMsg() {
 
 function resetGame() {
     session_unset();
-    header("location: index.php");
+    header("location: game.php");
     exit();
 }

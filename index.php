@@ -1,5 +1,3 @@
-<?php require_once __DIR__ . '/process.php' ?>
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -13,28 +11,8 @@
   
   <body>
     <h2 class="mt-4 text-center"> Tic-Tac-Toe </h2>
-
-    <!-- Spielfeld -->
-    <div class='container mt-4 d-flex justify-content-center align-items-center'>
-      <table class="border border-black border-3">
-        <form action='process.php' method='post'>
-          <!-- Rufe init mit der Methode GET in process.php auf -->
-          <?php init("GET") ?>
-        </form>
-      </table>
-    </div>
- 
-    <!-- Rücksetzbutton   -->
-    <div class='container mt-4 d-flex justify-content-center align-items-center'>
-      <form action='process.php' method='post'>
-        <button type='submit' name='reset' class="btn btn-outline-success m-4"> Zurücksetzen </button>
-      </form>
-    </div>
-
-    <!-- Feld für Nachricht über Spielausgang   -->
-    <div class="container d-flex justify-content-center align-items-center">
-      <?= isset($_SESSION["winMsg"]) ? $_SESSION["winMsg"] : "" ?>
-    </div>
+	<!-- TODO: Radio Buttons zum Auswählen, ob gegen Computer gespielt werden soll -->
+	<!-- POST an process.php, wo dann das Spiel initialisiert wird   -->
 
     <!-- <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js' integrity='sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz' crossorigin='anonymous'></script> -->
   </body>
