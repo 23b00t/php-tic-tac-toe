@@ -6,3 +6,7 @@
 // TODO: Ermittle wieviele Züge noch offen sind und wieviele mögliche Kombinationen
 // es gibt. Ermittle in Schleife, die check_for_win.php aufruft, was alles mögliche 
 // Züge sind und wähle den Besten. 
+
+function computerMove($round, $board) {
+	return [$round, $board];
+}

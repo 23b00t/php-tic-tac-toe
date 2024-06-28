@@ -11,6 +11,8 @@ function drawBoard($board) {
             $sign = $board[$row][$column];
     
             // Funktionalität um bereits genutzte Felder zu deaktivieren ($sign != "" ? "disabled" : "")
+            // strpos prüft ob das strong tag enthalten ist (was Gewinn anzeigt) und ändert dann die Farbe
+            // der Gewinnbuttons auf rot  
             echo "<th style='width:120px; height:120px'>
                         <button name=$position value='$sign' class='btn "
                         . (strpos($sign, 'strong') ? "btn-danger" : "btn-outline-info") .

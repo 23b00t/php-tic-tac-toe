@@ -5,6 +5,7 @@
 session_status() === PHP_SESSION_NONE && session_start();
 require_once __DIR__ . '/check_for_win.php';
 require_once __DIR__ . '/draw_board.php';
+require_once __DIR__ . '/computer_move.php';
 
 // Bei POST an verarbeiten.php, rufe init mit POST als Argument auf 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -17,7 +18,7 @@ function init($method) {
         $board = $_SESSION["board"];
     } else {
         $board = [["", "", ""], ["", "", ""], ["", "", ""]];
-        $round = 0;
+        $round = -1;
     }
     run($board, $round, $method);
 }
@@ -36,27 +37,27 @@ function run($board, $round, $method) {
             if ($_POST["switch"] === "computer") {
                 $_SESSION["modus"] = "computer";
             }
-        }
-
-        if (isset($_SESSION["modus"])) {
-            // Computer ist dran? --> computer_move.php
-            // Andernfalls gehe einfach weiter
-            if (isEven($round)) {
-                computerMove($round, $board);
+        } else {
+            if (isset($_SESSION["modus"])) {
+                // Computer ist dran? --> computer_move.php
+                // Andernfalls gehe einfach weiter
+                if (isEven($round)) {
+                    [$round, $board] = computerMove($round, $board);
+                } else {
+                    // WARNING: Duplicated Code detected 
+                    $point = array_keys($_POST)[0];
+                    $board = saveSign($board, $point, $round);
+                }
             } else {
-                // WARNING: Duplicated Code detected 
+                // Bestimmen welcher Button geklickt wurde und entsprechendes Zeichen 
+                // in Spielfeld Array speichern. Es gibt nur zwei POST Optionen; wenn es 
+                // reset war (guard clause), muss es ein Spielzug sein.  
+                // INFO: Diese Zeilen sind nur Aufzurufen, wenn der Computer nicht dran ist 
                 $point = array_keys($_POST)[0];
                 $board = saveSign($board, $point, $round);
+                // INFO: ---------------------------------------|
             }
-        } else {
-            // Bestimmen welcher Button geklickt wurde und entsprechendes Zeichen 
-            // in Spielfeld Array speichern. Es gibt nur zwei POST Optionen; wenn es 
-            // reset war (guard clause), muss es ein Spielzug sein.  
-            // INFO: Diese Zeilen sind nur Aufzurufen, wenn der Computer nicht dran ist 
-            $point = array_keys($_POST)[0];
-            $board = saveSign($board, $point, $round);
-            // INFO: ---------------------------------------|
-        }
+        }    
 
         // TODO: Logik um per Zufall zu entscheiden wer das Spiel beginnt  
 
@@ -99,7 +100,7 @@ function winMsg() {
 
 function resetGame() {
     session_unset();
-    header("location: game.php");
+    header("location: index.php");
     exit();
 }
 
