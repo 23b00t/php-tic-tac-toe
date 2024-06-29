@@ -9,41 +9,26 @@ function computerMove($round, $board) {
 	// finde freie Stellen, also '' im $board
 	$indexes = [];
 	foreach ($board as $rowIdx => $row) {
-        // $indexes[$rowIdx][] = array_search('', array_column($board, $rowIdx));
 		foreach ($row as $colIdx => $value) {
 			$value === '' && $indexes[] = [$rowIdx, $colIdx];
 		}
 	}
 
-	// INFO: Die folgenden zwei for-loops zusammenzufassen funktioniert aus irgendeinem
-	// Grund nicht - Wieso? Außerdem ist es nötig eine Deep Copy zu erstellen.
-	
 	// Wieviele Optionen hat Computer (Stellen an denen ein '' steht)
 	$possibleMoves = count($indexes);
-	// Überprüfe, ob Computer in diesem Zug gewinnen kann und ziehe entsprechend
-	for ($option = 0; $option  < $possibleMoves; $option ++) { 
-		$point = $indexes[$option];
-		$testBoard = clone_array($board);
-		$testBoard[$point[0]][$point[1]] = 'x';
-		$testMove = checkForWin($testBoard, true);
-		if ($testMove === 'win') {
-			$board = $testBoard;
-			// throw new Exception();
-			return $board;
-		} 
-	}
 
-	for ($option = 0; $option  < $possibleMoves; $option ++) { 
-		// Überprüfe, ob Gegener in diesem Zug gewinnen kann und ziehe entsprechend
-		$point = $indexes[$option];
-		$testBoard = clone_array($board);
-		$testBoard[$point[0]][$point[1]] = 'o';
-		$testMove = checkForWin($testBoard, true);
-		if ($testMove === 'win') {
-			$board[$point[0]][$point[1]]= 'x';
-            // throw new Exception();
-			return $board;
-		}
+	// NOTE: Es müssen erst alle Optionen auf Gewinn geprüft werden und nur wenn keine
+	// gefunden wird sind die Option zur Gewinnvereitelung relevant. 
+
+	// Gewinnmöglichkeit erst vor 5. Zug relevant  
+	if ($round > 3) {
+	    // Überprüfe, ob Computer in diesem Zug gewinnen kann und ziehe entsprechend
+	    $moveWin = checkMove('x', $board, $indexes, $possibleMoves);
+	    if ($moveWin) return $moveWin;
+	    
+	    // Überprüfen, ob Gegener im nächsten Zug gewinnen kann; falls ja Zug vereiteln  
+	    $move = checkMove('o', $board, $indexes, $possibleMoves);
+	    if ($move) return $move;
 	}
 
 	// Ansonsten mache einen Zufallszug.
@@ -55,4 +40,27 @@ function computerMove($round, $board) {
 	$board[$randPoint[0]][$randPoint[1]] = 'x';
 
 	return $board;
+}
+
+// Durchlaufe alle freien Felder und überprüfe, ob durch ein Setzten an dieser
+// Stelle ein Gewinn möglich ist
+function checkMove($sign, $board, $indexes, $possibleMoves) {
+	for ($option = 0; $option  < $possibleMoves; $option ++) { 
+		// Wähle freies Feld
+		$point = $indexes[$option];
+		// Clone originales Spielfeldarray, um Komplikationen durch fortlaufende
+		// Manipulation des referenzierten Speicherbereichs zu vermeiden.  
+		$testBoard = clone_array($board);
+		// Setze übergebenes Zeichen an Stelle auf Testboard  
+		$testBoard[$point[0]][$point[1]] = $sign;
+		// Überprüfe, ob mit diesem Zug ein Gewinn vorliegt
+		$testMove = checkForWin($testBoard, true);
+		// Falls ja, setzt dort und gebe das manipulierte Spielfeld zurück
+		if ($testMove === true) {
+            $testBoard[$point[0]][$point[1]] = 'x';
+			return $testBoard;
+		} 
+	}
+	// Es wurde kein Gewinn gefunden.  Gebe false zurück um NULL zu vermeiden.  
+	return false;
 }

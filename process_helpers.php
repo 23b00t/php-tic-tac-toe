@@ -1,4 +1,6 @@
 <?php
+// INFO: Hilfsfunktionen  
+
 // Ermittelt die Koordinaten des geklickten Buttons und
 // übergibt sie zur Weiterverarbeitung.
 function humanMove($post, $board, $round) {
@@ -39,7 +41,7 @@ function isEven($int) {
 // Erzuegt einen Clone eines Arrays, auch eines Multidimensionalen.
 // Dies ist nötig um Komplikationen bei der Bewertung der Züge durch
 // den Computer zu vermeiden, die durch mehrfaches verwenden und ändern
-// von Speicher bei einem einfachen verweis auf die Speicherstelle entsteht.
+// von Speicher bei einem einfachen Verweis auf die Speicherstelle entsteht.
 // thx to: https://craftytechie.com/how-to-copy-array-in-php/ for this perfect solution!
 function clone_array($arr) {
     $clone = array();

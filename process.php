@@ -27,6 +27,7 @@ function init($method) {
     } else {
         $board = [["", "", ""], ["", "", ""], ["", "", ""]];
         // auf -1 runter gegeangen, um ersten POST der die Spielart wählt aufzufangen  
+        // Logik von $round: Nach jedem Zug entspricht $round der Anzahl der gemachten Züge  
         $round = -1;
     }
     run($board, $round, $method);
@@ -37,27 +38,26 @@ function run($board, $round, $method) {
         // Spielfeld zurücksetzen, wenn entsprechender Button geklickt wurde
         isset($_POST["reset"]) && resetGame();
     
-        // Prüfe, ob Computergegner gewählt wurde. Falls ja übergebe dies an eine SESSION
-        // und mache den ersten Zug.  Andernfalls lade game.php, um das Spiel normal zu beginnen.  
-        // Falls die Session bereits gesetzt wurde prüfe, ob der Computer
-        // wieder an der Reihe ist ($round.odd?) und mache entweder den nächsten Zug oder nichts.  
-        
+        // INFO: Prüfe, ob Computergegner gewählt wurde.  Falls ja übergebe dies an eine SESSION. 
+        // Starte Spiel.  Falls die Session modus: computer gesetzt wurde prüfe, ob der Computer 
+        // an der Reihe ist (gerade Runde).  In jedem anderen Fall behandle den menschlichen Spielerzug. 
+
         if (isset($_POST["opponent"])) {
             if ($_POST["switch"] === "computer") {
                 $_SESSION["modus"] = "computer";
             }
         } else {
+            // Computer ist dran? 
             if (isset($_SESSION["modus"]) && isEven($round)) {
-                // Computer ist dran? --> computer_move.php
                 $board = computerMove($round, $board);
+            // Menschlicher Zug  
             } else {
-                // Bestimmen welcher Button geklickt wurde und entsprechendes Zeichen 
-                // in Spielfeld Array speichern. 
+                // Bestimmen welcher Button geklickt wurde und speichere Zeichen basierend auf Rundenzahl 
                 $board = humanMove($_POST, $board, $round);
             }
         }    
 
-        // Nur auf Gewinn prüfen, wenn ein Gewinn möglich ist
+        // Auf Gewinn prüfen, wenn ein Gewinn möglich ist (also nach dem 5. Zug)
         $round > 3 && $board = checkForWin($board);
             
         $round++;

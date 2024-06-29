@@ -23,26 +23,30 @@ function checkForWin($board, $testCase = false) {
         // Reihen und Spalten prüfen, nutze Schleife über Spielfeld, um 6 Kombination in zwei
         // Ausdrücken zu prüfen. Teste auch wieder auf falsch positiv ('')  
         foreach ($board as $rowIdx => $row) {
-            if ($row[0] === $row[1] && $row[1] === $row[2] && $row[1] != "") {
+            if ($row[0] === $row[1] && $row[1] === $row[2] && $row[1] !== "") {
                 $board[$rowIdx][0] = $board[$rowIdx][1] = $board[$rowIdx][2] = win($row[0], $testCase);
             } elseif (
                 $board[0][$rowIdx] === $board[1][$rowIdx] && 
                 $board[1][$rowIdx] === $board[2][$rowIdx] && 
-                $board[1][$rowIdx] != "") {
+                $board[1][$rowIdx] !== "") {
                 $board[0][$rowIdx] = $board[1][$rowIdx] = $board[2][$rowIdx] = win($board[0][$rowIdx], $testCase);
             }
         }
         return $board;
     // Fange die Ausnahme auf, falls in einem Testcase ein Gewinn festgestellt wurde
     } catch (TestException) {
-        return 'win';
+        return true;
     }
 }
 
-// Entscheide auf Gewinn, setzte Gewinner als x/o, formatiere Gewinnformation  
 function win($value, $testCase) {
+    // Wenn $testCase ture ist, also der Computer einen Zug überprüft und auf einen Gewinn  
+    // getroffen ist, löse die Ausnahme aus, damit der Treffer von catch abgefangen werden kann.  
     if ($testCase) {
+        // In diesem speziellen Fall ist das übermitteln der Exception message nicht nötig
+        // was bei aktuellen PHP Versionen optional ist >= v8.0.0
         throw new TestException();     
+    // Entscheide auf Gewinn, setzte Gewinner als x/o, formatiere Gewinnformation  
     } else {
         $_SESSION["win"] = "true";
         $_SESSION["winner"] = $value; 
