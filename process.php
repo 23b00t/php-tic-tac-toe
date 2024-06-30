@@ -49,7 +49,7 @@ function run($board, $round, $method) {
         } else {
             // Computer ist dran? 
             if (isset($_SESSION["modus"]) && isEven($round)) {
-                $board = computerMove($round, $board);
+                $board = computerMove($board, $round);
             // Menschlicher Zug  
             } else {
                 // Bestimmen welcher Button geklickt wurde und speichere Zeichen basierend auf Rundenzahl 

@@ -4,8 +4,10 @@
 // TODO: Ermittle wieviele Züge noch offen sind und wieviele mögliche Kombinationen
 // es gibt. Ermittle in Schleife, die check_for_win.php aufruft, was alles mögliche 
 // Züge sind und wähle den Besten. 
+// Siehe: https://de.wikipedia.org/wiki/Minimax-Algorithmus#Algorithmus
+// Oder lege Strategie für Computer fest, z. B. bevorzuge die Ecken.  
 
-function computerMove($round, $board) {
+function computerMove($board, $round) {
 	// finde freie Stellen, also '' im $board
 	$indexes = [];
 	foreach ($board as $rowIdx => $row) {
