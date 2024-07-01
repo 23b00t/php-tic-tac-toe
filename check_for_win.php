@@ -22,16 +22,14 @@ function checkForWin($board, $testCase = false) {
     
         // Reihen und Spalten prüfen, nutze Schleife über Spielfeld, um 6 Kombination in zwei
         // Ausdrücken zu prüfen. Teste auch wieder auf falsch positiv ('')  
-        foreach ($board as $rowIdx => $row) {
-            if ($row[0] === $row[1] && $row[1] === $row[2] && $row[1] !== "") {
-                $board[$rowIdx][0] = $board[$rowIdx][1] = $board[$rowIdx][2] = win($row[0], $testCase);
-            } elseif (
-                $board[0][$rowIdx] === $board[1][$rowIdx] && 
-                $board[1][$rowIdx] === $board[2][$rowIdx] && 
-                $board[1][$rowIdx] !== "") {
-                $board[0][$rowIdx] = $board[1][$rowIdx] = $board[2][$rowIdx] = win($board[0][$rowIdx], $testCase);
-            }
+        for ($i = 0; $i < 3; $i++) { 
+            if ($board[$i][0] === $board[$i][1] && $board[$i][1] === $board[$i][2] && $board[$i][0] !== '') {
+                $board[$i][0] = $board[$i][1] = $board[$i][2] = win($board[$i][0], $testCase);
+            } elseif ($board[0][$i] === $board[1][$i] && $board[1][$i] === $board[2][$i] && $board[0][$i] !== '') {
+                $board[0][$i] = $board[1][$i] = $board[2][$i] = win($board[0][$i], $testCase);
+            } 
         }
+
         return $board;
     // Fange die Ausnahme auf, falls in einem Testcase ein Gewinn festgestellt wurde
     } catch (TestException) {
