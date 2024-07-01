@@ -16,7 +16,6 @@ function computerMove($board, $round) {
 		}
 	}
 
-	// Wieviele Optionen hat Computer (Stellen an denen ein '' steht)
 	$possibleMoves = count($indexes);
 
 	// NOTE: Es müssen erst alle Optionen auf Gewinn geprüft werden und nur wenn keine
@@ -25,11 +24,11 @@ function computerMove($board, $round) {
 	// Gewinnmöglichkeit erst vor 5. Zug relevant  
 	if ($round > 3) {
 	    // Überprüfe, ob Computer in diesem Zug gewinnen kann und ziehe entsprechend
-	    $moveWin = checkMove('x', $board, $indexes, $possibleMoves);
+	    $moveWin = checkMove('x', $board, $indexes);
 	    if ($moveWin) return $moveWin;
 	    
 	    // Überprüfen, ob Gegener im nächsten Zug gewinnen kann; falls ja Zug vereiteln  
-	    $move = checkMove('o', $board, $indexes, $possibleMoves);
+	    $move = checkMove('o', $board, $indexes);
 	    if ($move) return $move;
 	}
 
@@ -46,10 +45,8 @@ function computerMove($board, $round) {
 
 // Durchlaufe alle freien Felder und überprüfe, ob durch ein Setzten an dieser
 // Stelle ein Gewinn möglich ist
-function checkMove($sign, $board, $indexes, $possibleMoves) {
-	for ($option = 0; $option  < $possibleMoves; $option ++) { 
-		// Wähle freies Feld
-		$point = $indexes[$option];
+function checkMove($sign, $board, $indexes) {
+    foreach ($indexes as $point) {
 		// Clone originales Spielfeldarray, um Komplikationen durch fortlaufende
 		// Manipulation des referenzierten Speicherbereichs zu vermeiden.  
 		$testBoard = clone_array($board);

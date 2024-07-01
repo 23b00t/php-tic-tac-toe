@@ -45,6 +45,7 @@ function run($board, $round, $method) {
         if (isset($_POST["opponent"])) {
             if ($_POST["switch"] === "computer") {
                 $_SESSION["modus"] = "computer";
+                
             }
         } else {
             // Computer ist dran? 
