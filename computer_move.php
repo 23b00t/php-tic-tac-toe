@@ -21,8 +21,8 @@ function computerMove($board, $round) {
 	// NOTE: Es müssen erst alle Optionen auf Gewinn geprüft werden und nur wenn keine
 	// gefunden wird sind die Option zur Gewinnvereitelung relevant. 
 
-	// Gewinnmöglichkeit erst vor 5. Zug relevant  
-	if ($round > 3) {
+	// Falls der Spieler beginnt, muss vor seinem 3. Zug auf Gewinn durch den Menschen geprüft werden
+	if ($round > 2) {
 	    // Überprüfe, ob Computer in diesem Zug gewinnen kann und ziehe entsprechend
 	    $moveWin = checkMove('x', $board, $indexes);
 	    if ($moveWin) return $moveWin;

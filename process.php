@@ -45,11 +45,11 @@ function run($board, $round, $method) {
         if (isset($_POST["opponent"])) {
             if ($_POST["switch"] === "computer") {
                 $_SESSION["modus"] = "computer";
-                
+                $_SESSION["beginner"] = rand(0, 1);
             }
         } else {
             // Computer ist dran? 
-            if (isset($_SESSION["modus"]) && isEven($round)) {
+            if (isset($_SESSION["modus"]) && isEven($round + $_SESSION["beginner"])) {
                 $board = computerMove($board, $round);
             // Menschlicher Zug  
             } else {

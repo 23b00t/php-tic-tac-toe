@@ -13,7 +13,7 @@ function humanMove($post, $board, $round) {
 function saveSign($board, $point, $round) {
     $row_index = (int)$point[0];
     $col_index = (int)$point[2];
-    $board[$row_index][$col_index] = isEven($round) ? "x" : "o";
+    $board[$row_index][$col_index] = isEven($round + $_SESSION["beginner"]) ? "x" : "o";
     return $board;
 }
 
