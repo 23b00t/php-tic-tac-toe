@@ -3,13 +3,11 @@
 class TestException extends Exception {}
 
 class Board {
-	public $board;
-
-	function new() {
+	public function new() {
 		return $this->board = [["", "", ""], ["", "", ""], ["", "", ""]];
 	}
 
-	function draw($board) {
+	public function draw($board) {
 		for ($row = 0; $row < 3; $row++) { 
 			echo "<tr>";
 			for ($column = 0; $column < 3; $column++) { 
@@ -33,7 +31,7 @@ class Board {
 		}
 	}
 
-	function checkForWin($board, $testCase = false) {
+	public function checkForWin($board, $testCase = false) {
 		// Hauptblock wenn es kein Testcase ist oder dieser ohne Gewinn verläuft
 		try {
 			// Diagonalen prüfen; bei Match rufe win auf
@@ -63,7 +61,7 @@ class Board {
 		}
 	}
 
-	function win($value, $testCase) {
+	private function win($value, $testCase) {
 		// Wenn $testCase ture ist, also der Computer einen Zug überprüft und auf einen Gewinn  
 		// getroffen ist, löse die Ausnahme aus, damit der Treffer von catch abgefangen werden kann.  
 		if ($testCase) {

@@ -1,7 +1,5 @@
 <?php
 class ComputerMove {
-	public $board;
-
 	// INFO: Logik um den Computer einen Zug machen zu lassen
 
 	// TODO: Ermittle wieviele Züge noch offen sind und wieviele mögliche Kombinationen
@@ -10,7 +8,7 @@ class ComputerMove {
 	// Siehe: https://de.wikipedia.org/wiki/Minimax-Algorithmus#Algorithmus
 	// Oder lege Strategie für Computer fest, z. B. bevorzuge die Ecken.  
 
-	function makeMove($board, $round) {
+	public function makeMove($board, $round) {
 		// finde freie Stellen, also '' im $board
 		$indexes = [];
 		foreach ($board as $rowIdx => $row) {
@@ -48,7 +46,7 @@ class ComputerMove {
 
 	// Durchlaufe alle freien Felder und überprüfe, ob durch ein Setzten an dieser
 	// Stelle ein Gewinn möglich ist
-	function checkMove($sign, $board, $indexes) {
+	private function checkMove($sign, $board, $indexes) {
 		foreach ($indexes as $point) {
 			// Clone originales Spielfeldarray, um Komplikationen durch fortlaufende
 			// Manipulation des referenzierten Speicherbereichs zu vermeiden.  

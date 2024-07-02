@@ -2,7 +2,7 @@
 
 class Game {
 	// Erzeugt eine Nachricht über den Spielausgang
-	function winMsg() {
+	public function winMsg() {
 		// Wenn die Session win true ist schreibe die erste Nachricht in winMsg, andernfalls die zweite
 		$_SESSION["winMsg"] = 
 		$_SESSION["win"] === "true"
@@ -11,7 +11,7 @@ class Game {
 	}
 
 	// Startet das Spiel neu
-	function resetGame() {
+	public function resetGame() {
 		session_unset();
 		header("location: index.php");
 		exit();
