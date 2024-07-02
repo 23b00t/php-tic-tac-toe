@@ -1,15 +1,21 @@
 <?php
+// INFO: Steuere das Spiel  
 
 class GameController {
-    function run($board, $round, $method) {
-        $boardObj = new Board();
-        $gameObj = new Game();
-        $computer = new ComputerMove(); 
-        $human = new HumanMove();
+    // Initialisiere Spiel mit Board und Runde. Erzeuge benötigte Instanzen anderer Klassen.  
+    function __construct(private $board, private $round) {
+        $this->board = $board;
+        $this->round = $round;
+        $this->boardObj = new Board();
+        $this->computer = new ComputerMove(); 
+        $this->human = new HumanMove();
+    }
 
+    // Durchlaufe eine Runde  
+    public function run($method) {
         if ($method === "POST") {
             // Spielfeld zurücksetzen, wenn entsprechender Button geklickt wurde
-            isset($_POST["reset"]) && $gameObj->resetGame();
+            isset($_POST["reset"]) && Helper::resetGame();
 
             // INFO: Prüfe, ob Computergegner gewählt wurde.  Falls ja übergebe dies an eine SESSION. 
             // Starte Spiel.  Falls die Session modus: computer gesetzt wurde prüfe, ob der Computer 
@@ -22,34 +28,33 @@ class GameController {
                 }
             } else {
                 // Computer ist dran? 
-                if (isset($_SESSION["modus"]) && Helper::isEven($round + $_SESSION["beginner"])) {
-                    $board = $computer->makeMove($board, $round);
+                if (isset($_SESSION["modus"]) && Helper::isEven($this->round + $_SESSION["beginner"])) {
+                    $this->board = $this->computer->makeMove($this->board, $this->round);
                 } else {
                     // Menschlicher Zug  
                     // Bestimmen welcher Button geklickt wurde und speichere Zeichen basierend auf Rundenzahl 
-                    $board = $human->makeMove($_POST, $board, $round);
+                    $this->board = $this->human->makeMove($_POST, $this->board, $this->round);
                 }
             }    
 
             // Auf Gewinn prüfen, wenn ein Gewinn möglich ist (also nach dem 5. Zug)
-            $round > 3 && $board = $boardObj->checkForWin($board);
+            $this->round > 3 && $this->board = $this->boardObj->checkForWin($this->board);
 
-            $round++;
+            $this->round++;
 
             // Unentschieden setzten, wenn 9 Züge gemacht wurden und kein Gewinn im letzten Zug stattfand
-            ($round >= 9 && !isset($_SESSION["win"])) && $_SESSION["win"] = "false";
+            ($this->round >= 9 && !isset($_SESSION["win"])) && $_SESSION["win"] = "false";
 
-            $_SESSION["round"] = $round;
-            $_SESSION["board"] = $board;
+            $_SESSION["round"] = $this->round;
+            $_SESSION["board"] = $this->board;
 
             // Gib bei Gewinn oder Spielende (Unentschieden) eine entsprechende Mitteilung aus
-            isset($_SESSION["win"]) && $gameObj->winMsg(); 
+            isset($_SESSION["win"]) && Helper::winMsg(); 
 
             header("location: game.php");
         } else {
             // Nach jedem GET auf game.php
-            $boardObj->draw($board);
+            $this->boardObj->draw($this->board);
         } 
     }
-
 }

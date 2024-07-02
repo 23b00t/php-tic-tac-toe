@@ -1,10 +1,15 @@
 <?php
+// INFO: Behandle alle Board aktionen
 
+// HACK: Definiere eine benutzerdefinierte Exception und nutze sie,
+// um bei der Gewinnprüfung durch den Computer der nach seinem Zug 
+// sucht, das origanel Spielfeld nicht zu manipulieren und nur die 
+// Mitteilung zurückzugeben, dass dies ein Gewinnzug war.
 class TestException extends Exception {}
 
 class Board {
 	public function new() {
-		return $this->board = [["", "", ""], ["", "", ""], ["", "", ""]];
+		return [["", "", ""], ["", "", ""], ["", "", ""]];
 	}
 
 	public function draw($board) {
