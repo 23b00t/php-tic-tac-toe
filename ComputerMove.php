@@ -1,5 +1,4 @@
 <?php
-
 class ComputerMove {
 	public $board;
 
@@ -28,11 +27,11 @@ class ComputerMove {
 		// Falls der Spieler beginnt, muss vor seinem 3. Zug auf Gewinn durch den Menschen geprüft werden
 		if ($round > 2) {
 			// Überprüfe, ob Computer in diesem Zug gewinnen kann und ziehe entsprechend
-			$moveWin = checkMove('x', $board, $indexes);
+			$moveWin = $this->checkMove('x', $board, $indexes);
 			if ($moveWin) return $moveWin;
 
 			// Überprüfen, ob Gegener im nächsten Zug gewinnen kann; falls ja Zug vereiteln  
-			$move = checkMove('o', $board, $indexes);
+			$move = $this->checkMove('o', $board, $indexes);
 			if ($move) return $move;
 		}
 
@@ -53,11 +52,12 @@ class ComputerMove {
 		foreach ($indexes as $point) {
 			// Clone originales Spielfeldarray, um Komplikationen durch fortlaufende
 			// Manipulation des referenzierten Speicherbereichs zu vermeiden.  
-			$testBoard = clone_array($board);
+			$testBoard = Helper::clone_array($board);
 			// Setze übergebenes Zeichen an Stelle auf Testboard  
 			$testBoard[$point[0]][$point[1]] = $sign;
 			// Überprüfe, ob mit diesem Zug ein Gewinn vorliegt
-			$testMove = checkForWin($testBoard, true);
+			$boardObj = new Board();
+			$testMove = $boardObj->checkForWin($testBoard, true);
 			// Falls ja, setzt dort und gebe das manipulierte Spielfeld zurück
 			if ($testMove === true) {
 				$testBoard[$point[0]][$point[1]] = 'x';

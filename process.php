@@ -37,9 +37,10 @@ function init($method) {
 
 function run($board, $round, $method) {
     $boardObj = new Board();
+    $gameObj = new Game();
     if ($method === "POST") {
         // Spielfeld zurücksetzen, wenn entsprechender Button geklickt wurde
-        isset($_POST["reset"]) && resetGame();
+        isset($_POST["reset"]) && $gameObj->resetGame();
 
         // INFO: Prüfe, ob Computergegner gewählt wurde.  Falls ja übergebe dies an eine SESSION. 
         // Starte Spiel.  Falls die Session modus: computer gesetzt wurde prüfe, ob der Computer 
@@ -60,7 +61,6 @@ function run($board, $round, $method) {
                 $human = new HumanMove();
                 $board = $human->makeMove($_POST, $board, $round);
                 // Bestimmen welcher Button geklickt wurde und speichere Zeichen basierend auf Rundenzahl 
-                $board = humanMove($_POST, $board, $round);
             }
         }    
 
@@ -76,12 +76,12 @@ function run($board, $round, $method) {
         $_SESSION["board"] = $board;
 
         // Gib bei Gewinn oder Spielende (Unentschieden) eine entsprechende Mitteilung aus
-        isset($_SESSION["win"]) && winMsg(); 
+        isset($_SESSION["win"]) && $gameObj->winMsg(); 
 
         header("location: game.php");
     } else {
         // Nach jedem GET auf game.php
-        $boardObj->drawBoard($board);
+        $boardObj->draw($board);
     } 
 }
 

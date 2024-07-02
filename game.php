@@ -23,7 +23,7 @@
           <!-- Rufe init mit der Methode GET in process.php auf -->
           <?php init("GET") ?>
           <!-- Simuliere POST, wenn der Computer am Zug ist und noch kein Gewinn vorliegt -->
-          <?php isset($_SESSION["modus"]) && isEven($_SESSION["round"] + $_SESSION["beginner"]) && !isset($_SESSION["winMsg"]) && init("POST") ?>
+          <?php isset($_SESSION["modus"]) && Helper::isEven($_SESSION["round"] + $_SESSION["beginner"]) && !isset($_SESSION["winMsg"]) && init("POST") ?>
         </form>
       </table>
     </div>
