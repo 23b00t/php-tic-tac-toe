@@ -13,7 +13,8 @@ class HumanMove {
 	private function saveSign($board, $point, $round) {
 		$row_index = (int)$point[0];
 		$col_index = (int)$point[2];
-		$board[$row_index][$col_index] = Helper::isEven($round + $_SESSION["beginner"]) ? "x" : "o";
+		$beginner = isset($_SESSION["beginner"]) ? $_SESSION["beginner"] : 0;
+		$board[$row_index][$col_index] = Helper::isEven($round + $beginner) ? "x" : "o";
 		return $board;
 	}
 }
