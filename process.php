@@ -8,10 +8,11 @@
 session_status() === PHP_SESSION_NONE && session_start();
 
 // Binde Dateien ein
-require_once __DIR__ . '/check_for_win.php';
-require_once __DIR__ . '/draw_board.php';
-require_once __DIR__ . '/computer_move.php';
-require_once __DIR__ . '/process_helpers.php';
+require_once __DIR__ . '/HumanMove.php';
+require_once __DIR__ . '/Helper.php';
+require_once __DIR__ . '/Game.php';
+require_once __DIR__ . '/Board.php';
+require_once __DIR__ . '/ComputerMove.php';
 
 
 // HACK: Simuliere POST und GET per übergabe als String Argument an run
@@ -25,7 +26,8 @@ function init($method) {
         $round = $_SESSION["round"];
         $board = $_SESSION["board"];
     } else {
-        $board = [["", "", ""], ["", "", ""], ["", "", ""]];
+        $boardObj = new Board();
+        $board = $boardObj->new();
         // auf -1 runter gegeangen, um ersten POST der die Spielart wählt aufzufangen  
         // Logik von $round: Nach jedem Zug entspricht $round der Anzahl der gemachten Züge  
         $round = -1;
@@ -34,10 +36,11 @@ function init($method) {
 }
 
 function run($board, $round, $method) {
+    $boardObj = new Board();
     if ($method === "POST") {
         // Spielfeld zurücksetzen, wenn entsprechender Button geklickt wurde
         isset($_POST["reset"]) && resetGame();
-    
+
         // INFO: Prüfe, ob Computergegner gewählt wurde.  Falls ja übergebe dies an eine SESSION. 
         // Starte Spiel.  Falls die Session modus: computer gesetzt wurde prüfe, ob der Computer 
         // an der Reihe ist (gerade Runde).  In jedem anderen Fall behandle den menschlichen Spielerzug. 
@@ -49,33 +52,36 @@ function run($board, $round, $method) {
             }
         } else {
             // Computer ist dran? 
-            if (isset($_SESSION["modus"]) && isEven($round + $_SESSION["beginner"])) {
-                $board = computerMove($board, $round);
-            // Menschlicher Zug  
+            if (isset($_SESSION["modus"]) && Helper::isEven($round + $_SESSION["beginner"])) {
+                $computer = new ComputerMove(); 
+                $board = $computer->makeMove($board, $round);
+                // Menschlicher Zug  
             } else {
+                $human = new HumanMove();
+                $board = $human->makeMove($_POST, $board, $round);
                 // Bestimmen welcher Button geklickt wurde und speichere Zeichen basierend auf Rundenzahl 
                 $board = humanMove($_POST, $board, $round);
             }
         }    
 
         // Auf Gewinn prüfen, wenn ein Gewinn möglich ist (also nach dem 5. Zug)
-        $round > 3 && $board = checkForWin($board);
-            
+        $round > 3 && $board = $boardObj->checkForWin($board);
+
         $round++;
 
         // Unentschieden setzten, wenn 9 Züge gemacht wurden und kein Gewinn im letzten Zug stattfand
         ($round >= 9 && !isset($_SESSION["win"])) && $_SESSION["win"] = "false";
-    
-	    $_SESSION["round"] = $round;
-	    $_SESSION["board"] = $board;
+
+        $_SESSION["round"] = $round;
+        $_SESSION["board"] = $board;
 
         // Gib bei Gewinn oder Spielende (Unentschieden) eine entsprechende Mitteilung aus
         isset($_SESSION["win"]) && winMsg(); 
-        
+
         header("location: game.php");
     } else {
         // Nach jedem GET auf game.php
-        drawBoard($board);
+        $boardObj->drawBoard($board);
     } 
 }
 
