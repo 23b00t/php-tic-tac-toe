@@ -5,11 +5,12 @@
 session_status() === PHP_SESSION_NONE && session_start();
 
 // Binde Dateien ein
-require_once __DIR__ . '/HumanMove.php';
-require_once __DIR__ . '/Helper.php';
-require_once __DIR__ . '/Board.php';
-require_once __DIR__ . '/ComputerMove.php';
-require_once __DIR__ . '/GameController.php';
+define('__ROOT__', dirname(dirname(__FILE__)));
+require_once(__ROOT__.'/src/models/HumanMove.php');
+require_once(__ROOT__.'/src/helpers/Helper.php');
+require_once(__ROOT__.'/src/models/Board.php');
+require_once(__ROOT__.'/src/models/ComputerMove.php');
+require_once(__ROOT__.'/src/controllers/GameController.php');
 
 // Bei POST an verarbeiten.php, rufe init mit POST als Argument auf 
 $_SERVER["REQUEST_METHOD"] === "POST" && init("POST");

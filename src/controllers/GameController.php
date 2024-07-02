@@ -40,11 +40,13 @@ class GameController {
             // Auf Gewinn prüfen, wenn ein Gewinn möglich ist (also nach dem 5. Zug)
             $this->round > 3 && $this->board = $this->boardObj->checkForWin($this->board);
 
+            // Rundenzahl erhöhen  
             $this->round++;
 
             // Unentschieden setzten, wenn 9 Züge gemacht wurden und kein Gewinn im letzten Zug stattfand
             ($this->round >= 9 && !isset($_SESSION["win"])) && $_SESSION["win"] = "false";
 
+            // Ergebnis der Runde speichern  
             $_SESSION["round"] = $this->round;
             $_SESSION["board"] = $this->board;
 

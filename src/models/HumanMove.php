@@ -1,5 +1,5 @@
 <?php
-
+// Zug durch Eingabe eines Spielers
 class HumanMove {
 	// Ermittelt die Koordinaten des geklickten Buttons und
 	// übergibt sie zur Weiterverarbeitung.

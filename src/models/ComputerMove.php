@@ -1,7 +1,7 @@
 <?php
-class ComputerMove {
-	// INFO: Logik um den Computer einen Zug machen zu lassen
+// INFO: Logik um den Computer einen Zug machen zu lassen
 
+class ComputerMove {
 	// TODO: Ermittle wieviele Züge noch offen sind und wieviele mögliche Kombinationen
 	// es gibt. Ermittle in Schleife, die check_for_win.php aufruft, was alles mögliche 
 	// Züge sind und wähle den Besten. 
