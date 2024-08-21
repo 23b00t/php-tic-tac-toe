@@ -1,5 +1,12 @@
 <!-- INFO: HTML Struktur der Gegenerwahl Seite -->
 
+<?php 
+session_start();
+if(!isset($_SESSION["login"])) {
+  header("Location: index.php");
+} 
+?>
+
 <!DOCTYPE html>
 <html>
   <head>

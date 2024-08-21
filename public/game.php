@@ -2,6 +2,12 @@
 
 <?php require_once __DIR__ . '/process.php' ?>
 
+<?php 
+if(!isset($_SESSION['login'])) {
+  header("Location: index.php");
+} 
+?>
+
 <!DOCTYPE html>
 <html>
   <head>

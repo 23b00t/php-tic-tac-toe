@@ -16,7 +16,12 @@ class Helper {
 
 	// Startet das Spiel neu
 	public static function resetGame() {
-		session_unset();
+		// session_unset();
+		unset($_SESSION['board']);
+		unset($_SESSION['round']);
+		unset($_SESSION['winMsg']);
+		unset($_SESSION['win']);
+		unset($_SESSION['winner']);
 		header("location: options.php");
 		exit();
 	}
