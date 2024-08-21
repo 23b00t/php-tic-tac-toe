@@ -27,4 +27,4 @@ function init($method) {
     $gameController = new GameController($_SESSION["board"], $_SESSION["round"]);
     $gameController->run($method);
 }
-
+?>

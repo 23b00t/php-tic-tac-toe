@@ -47,12 +47,12 @@ function loginUser($username, $password) {
 			exit();
 		} else {
 			// Passwort stimmt nicht überein
-			header('Location: ../views/login_form.php?error=wrong%20credentials');
+			header('Location: ../views/login_form.php?error=Falsche%20Zugangsdaten');
 			exit();
 		}
 	} else {
 		// Benutzername existiert nicht
-			header('Location: ../views/login_form.php?error=wrong%20credentials');
+			header('Location: ../views/login_form.php?error=Falsche%20Zugangsdaten');
 		exit();
 	}
 }
