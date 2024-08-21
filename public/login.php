@@ -44,12 +44,12 @@ function loginUser($username, $password) {
 			exit();
 		} else {
 			// Passwort stimmt nicht überein
-			header('Location: index.php');
+			header('Location: index.php?error=wrong_credentials');
 			exit();
 		}
 	} else {
 		// Benutzername existiert nicht
-		header('Location: index.php');
+		header('Location: index.php?error=wrong_credentials');
 		exit();
 	}
 

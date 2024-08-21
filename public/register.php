@@ -36,11 +36,19 @@ function createUser($username, $password) {
 		);
 	SQL;
 
-	if ($conn->query($sql) === TRUE) {
+	try {
+		$conn->query($sql);
+		// Erfolgreiches Einfügen
 		header('Location: index.php');
 		exit();
-	} else {
-		header('Location: register_form.php');
+	} catch (mysqli_sql_exception $e) {
+		if ($e->getCode() === 1062) {
+			// Fehler 1062: Duplicate entry (Datenbankfehler für UNIQUE-Constraint)
+			header('Location: register_form.php?error=username_taken');
+		} else {
+			// Andere Fehler
+			header('Location: register_form.php?error=unknown');
+		}
 		exit();
 	}
 
