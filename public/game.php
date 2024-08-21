@@ -1,8 +1,8 @@
 <!-- INFO: HTML Struktur des Spielfelds -->
 
-<?php require_once __DIR__ . '/process.php' ?>
-
 <?php 
+require_once __DIR__ . '/process.php';
+
 if(!isset($_SESSION['login'])) {
   header("Location: index.php");
 } 

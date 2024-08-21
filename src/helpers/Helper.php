@@ -26,6 +26,12 @@ class Helper {
 		exit();
 	}
 
+	public static function signOut() {
+		session_destroy();
+		header("location: index.php");
+		exit();
+	}
+
 	// Erzuegt einen Clone eines Arrays, auch eines Multidimensionalen.
 	// Dies ist nötig um Komplikationen bei der Bewertung der Züge durch
 	// den Computer zu vermeiden, die durch mehrfaches verwenden und ändern

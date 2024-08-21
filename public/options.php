@@ -19,6 +19,13 @@ if(!isset($_SESSION["login"])) {
   </head>
   
   <body>
+    <!-- Ausloggen --> 
+    <div class="container mt-2 d-flex justify-content-end">
+      <form action="process.php" method="post">
+        <button type="submit" name='signout' class=" btn btn-warning mb-3"> Sign Out</button>
+      </form>
+    </div>
+
     <h2 class="mt-4 text-center"> Tic-Tac-Toe </h2>
     <h4 class="mt-4 text-center"> Wähle einen Gegner: </h4>
 

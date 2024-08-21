@@ -30,7 +30,7 @@
                         <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-block">Registrieren</button>
+                        <button type="submit" class="btn btn-primary btn-block mt-2">Registrieren</button>
                     </div>
                     <div class="form-group text-center">
                         <a href="index.php" class="btn btn-link">Bereits registriert? Login</a>

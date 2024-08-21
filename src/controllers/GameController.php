@@ -16,6 +16,7 @@ class GameController {
         if ($method === "POST") {
             // Spielfeld zurücksetzen, wenn entsprechender Button geklickt wurde
             isset($_POST["reset"]) && Helper::resetGame();
+            isset($_POST["signout"]) && Helper::signOut();
 
             // INFO: Prüfe, ob Computergegner gewählt wurde.  Falls ja übergebe dies an eine SESSION. 
             // Starte Spiel.  Falls die Session modus: computer gesetzt wurde prüfe, ob der Computer 
