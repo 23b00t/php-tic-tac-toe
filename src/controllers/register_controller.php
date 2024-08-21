@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	if ($password === $confirm_password) {
 		createUser($username, $password);
 	} else {
-		header('Location: register_form.php?error=missmatch%20passwords');
+		header('Location: ../views/register_form.php?error=missmatch%20passwords');
 		exit();
 	}
 }
@@ -39,15 +39,15 @@ function createUser($username, $password) {
 	try {
 		$conn->query($sql);
 		// Erfolgreiches Einfügen
-		header('Location: index.php');
+		header('Location: ../../public/index.php');
 		exit();
 	} catch (mysqli_sql_exception $e) {
 		if ($e->getCode() === 1062) {
 			// Fehler 1062: Duplicate entry (Datenbankfehler für UNIQUE-Constraint)
-			header('Location: register_form.php?error=username%20taken');
+			header('Location: ../views/register_form.php?error=username%20taken');
 		} else {
 			// Andere Fehler
-			header('Location: register_form.php?error=unknown');
+			header('Location: ../views/register_form.php?error=unknown');
 		}
 		exit();
 	}

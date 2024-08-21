@@ -43,16 +43,16 @@ function loginUser($username, $password) {
 			// Passwort stimmt überein, Login erfolgreich
 			session_start();
 			$_SESSION["login"] = "true";
-			header('Location: options.php');
+			header('Location: /tic-tac-toe/app/src/views/options_view.php');
 			exit();
 		} else {
 			// Passwort stimmt nicht überein
-			header('Location: index.php?error=wrong%20credentials');
+			header('Location: ../views/login_form.php?error=wrong%20credentials');
 			exit();
 		}
 	} else {
 		// Benutzername existiert nicht
-		header('Location: index.php?error=wrong%20credentials');
+			header('Location: ../views/login_form.php?error=wrong%20credentials');
 		exit();
 	}
 }

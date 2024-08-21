@@ -54,7 +54,7 @@ class GameController {
             // Gib bei Gewinn oder Spielende (Unentschieden) eine entsprechende Mitteilung aus
             isset($_SESSION["win"]) && Helper::winMsg(); 
 
-            header("location: game.php");
+            header("location: /tic-tac-toe/app/src/views/game_view.php");
         } else {
             // Nach jedem GET auf game.php
             $this->boardObj->draw($this->board);

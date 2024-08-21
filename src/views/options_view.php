@@ -3,7 +3,7 @@
 <?php 
 session_start();
 if(!isset($_SESSION["login"])) {
-  header("Location: index.php");
+  header("Location: ../public/index.php");
 } 
 ?>
 
@@ -22,7 +22,7 @@ if(!isset($_SESSION["login"])) {
   <body>
     <!-- Ausloggen --> 
     <div class="container mt-2 d-flex justify-content-end">
-      <form action="process.php" method="post">
+      <form action="../controllers/process_controller.php" method="post">
         <button type="submit" name='signout' class=" btn btn-warning mb-3"> 
           <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout 
         </button>
@@ -35,7 +35,7 @@ if(!isset($_SESSION["login"])) {
 	<!-- Radio Buttons zum Auswählen, ob gegen Computer gespielt werden soll -->
 	<!-- POST an process.php, wo dann das Spiel initialisiert wird   -->
     <div class="container mt-4 d-flex justify-content-center align-items-center" >
-      <form method="POST" action="process.php">
+      <form action="../controllers/process_controller.php" method="post">
         <div class="form-check">
           <input class="form-check-input" type="radio" name="switch" value="human" checked>
           <label class="form-check-label" for="flexRadioDefault1">

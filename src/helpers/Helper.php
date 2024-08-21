@@ -22,13 +22,15 @@ class Helper {
 		unset($_SESSION['winMsg']);
 		unset($_SESSION['win']);
 		unset($_SESSION['winner']);
-		header("location: options.php");
+		unset($_SESSION['modus']);
+		unset($_SESSION['beginner']);
+		header("location: /tic-tac-toe/app/src/views/options_view.php");
 		exit();
 	}
 
 	public static function signOut() {
 		session_destroy();
-		header("location: index.php");
+		header("location: ../../public/index.php");
 		exit();
 	}
 

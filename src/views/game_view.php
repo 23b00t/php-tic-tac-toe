@@ -1,10 +1,10 @@
 <!-- INFO: HTML Struktur des Spielfelds -->
 
 <?php 
-require_once __DIR__ . '/process.php';
+require_once __DIR__ . '/../controllers/process_controller.php';
 
 if(!isset($_SESSION['login'])) {
-  header("Location: index.php");
+  header("Location: ../public/index.php");
 } 
 ?>
 
@@ -25,7 +25,7 @@ if(!isset($_SESSION['login'])) {
     <!-- Spielfeld -->
     <div class='container mt-4 d-flex justify-content-center align-items-center'>
       <table class="border border-black border-3">
-        <form action='process.php' method='post'>
+        <form action='../controllers/process_controller.php' method='post'>
           <!-- Rufe init mit der Methode GET in process.php auf -->
           <?php init("GET") ?>
           <!-- Simuliere POST, wenn der Computer am Zug ist und noch kein Gewinn vorliegt -->
@@ -36,7 +36,7 @@ if(!isset($_SESSION['login'])) {
  
     <!-- Rücksetzbutton   -->
     <div class='container mt-4 d-flex justify-content-center align-items-center'>
-      <form action='process.php' method='post'>
+        <form action='../controllers/process_controller.php' method='post'>
         <button type='submit' name='reset' class="btn btn-outline-success m-4"> Zurücksetzen </button>
       </form>
     </div>
