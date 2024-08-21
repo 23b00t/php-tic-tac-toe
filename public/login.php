@@ -31,6 +31,9 @@ function loginUser($username, $password) {
 
 	$result = $conn->query($sql);
 
+	// Verbindung schließen
+	$conn->close();
+
 	if ($result && $result->num_rows > 0) {
 		$row = $result->fetch_assoc();
 		$hashed_password = $row['password'];
@@ -44,16 +47,13 @@ function loginUser($username, $password) {
 			exit();
 		} else {
 			// Passwort stimmt nicht überein
-			header('Location: index.php?error=wrong_credentials');
+			header('Location: index.php?error=wrong%20credentials');
 			exit();
 		}
 	} else {
 		// Benutzername existiert nicht
-		header('Location: index.php?error=wrong_credentials');
+		header('Location: index.php?error=wrong%20credentials');
 		exit();
 	}
-
-	// Verbindung schließen
-	$conn->close();
 }
 ?>
