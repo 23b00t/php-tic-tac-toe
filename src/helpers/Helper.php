@@ -17,7 +17,7 @@ class Helper {
 	// Startet das Spiel neu
 	public static function resetGame() {
 		session_unset();
-		header("location: index.php");
+		header("location: options.php");
 		exit();
 	}
 
