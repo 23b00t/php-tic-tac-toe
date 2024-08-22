@@ -18,3 +18,4 @@ class HumanMove {
 		return $board;
 	}
 }
+?>

@@ -4,7 +4,7 @@
 require_once __DIR__ . '/../router.php';
 
 if(!isset($_SESSION['login'])) {
-  header("Location: ../public/index.php");
+  header("Location: ../../public/index.php");
 } 
 ?>
 

@@ -3,22 +3,22 @@ require_once __DIR__ . '/../helpers/DatabaseHelper.php';
 
 class Register {
 	public static function createUser($username, $password) {
-		$conn = DatabaseHelper::connect("user_write");
+		// Datenbank verbindung mit dem Nutzer user_write herstellen
+		$conn = DatabaseHelper::connect("user_write", "password_write");
 
-		$username = $conn->real_escape_string($username);
-		$password_hashed = password_hash($password, PASSWORD_DEFAULT);
+		// Passwort mit Standardeinstellungen hashen
+        $password_hashed = password_hash($password, PASSWORD_DEFAULT);
 
-		// Spaltennamen hinzufügen
-		$sql = <<<SQL
-			INSERT INTO user (username, password) VALUES (
-				'$username', '$password_hashed'
-			);
-		SQL;
+        // SQL-Abfrage und Parameter definieren
+        $sql = 'INSERT INTO user (username, password) VALUES (?, ?)';
+        $params = ['ss', $username, $password_hashed];  // 'ss' steht für zwei Strings
 
-		try {
-			DatabaseHelper::query($conn, $sql);
+        // Versuchen den Benutzer anzulegen. Wenn Fehler auftritt, z. B. Verstoß gegen
+        // UNIQUE-Constraint catch Block ausführen
+        try {
+            DatabaseHelper::prepareAndExecute($conn, $sql, $params);
 			// Erfolgreiches Einfügen
-			header('Location: ../../public/index.php');
+			header('Location: ../public/index.php');
 			exit();
 		} catch (mysqli_sql_exception $e) {
 			if ($e->getCode() === 1062) {

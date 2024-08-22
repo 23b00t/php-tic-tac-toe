@@ -2,7 +2,7 @@
 // INFO: Router
 
 // Überprüfe, ob keine Session aktiv ist, dann starte eine  
-// session_status() === PHP_SESSION_NONE && session_start();
+session_status() === PHP_SESSION_NONE && session_start();
 
 // Binde Dateien ein
 define('__ROOT__', dirname(dirname(__FILE__)));
@@ -21,11 +21,6 @@ $_SERVER["REQUEST_METHOD"] === "POST" && init("POST");
 // --> Lösung für Züge durch Computergegener
 
 function init($method) {
-    if (!isset($_SESSION["board"])) {
-        $_SESSION["board"] = (new Board())->new();
-        $_SESSION["round"] = -1;
-    }
-
     if (isset($_POST['login'])) {
         $username = $_POST['username'];  
         $password = $_POST['password'];      
@@ -46,6 +41,11 @@ function init($method) {
         }
     }
     
+    if (!isset($_SESSION["board"])) {
+        $_SESSION["board"] = (new Board())->new();
+        $_SESSION["round"] = -1;
+    }
+
     $gameController = new GameController($_SESSION["board"], $_SESSION["round"]);
     $gameController->run($method);
 }

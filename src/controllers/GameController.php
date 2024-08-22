@@ -55,9 +55,11 @@ class GameController {
             isset($_SESSION["win"]) && Helper::winMsg(); 
 
             header("location: /tic-tac-toe/app/src/views/game_view.php");
+            exit();
         } else {
             // Nach jedem GET auf game.php
             $this->boardObj->draw($this->board);
         } 
     }
 }
+?>

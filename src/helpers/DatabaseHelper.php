@@ -1,8 +1,7 @@
 <?php
 class DatabaseHelper {
-	public static function connect($dbuser) {
+	public static function connect($dbuser, $dbpassword) {
 		$servername = "127.0.0.1";
-		$dbpassword = "";  
 		$dbname = "tic_tac_toe";
 
 		// Verbindung herstellen
@@ -16,13 +15,24 @@ class DatabaseHelper {
 		return $conn;
 	}
 
-	public static function query($conn, $sql) {
-		$result = $conn->query($sql);
+	public static function prepareAndExecute($conn, $sql, $params) {
+                // Die SQL-Abfrage vorbereiten
+                $stmt = $conn->prepare($sql);
 
-		// Verbindung schließen
-		$conn->close();
+                // Parameter an die vorbereitete Anweisung binden
+                $stmt->bind_param(...$params);
 
-		return $result;
-	}
+                // Die vorbereitete Anweisung ausführen
+                $stmt->execute();
+
+                // Das Ergebnis abrufen
+                $result = $stmt->get_result();
+
+                // Ressourcen freigeben
+                $stmt->close();
+                $conn->close();
+
+                return $result;
+    }
 }
 ?>
