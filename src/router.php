@@ -6,10 +6,10 @@ session_status() === PHP_SESSION_NONE && session_start();
 
 // Binde Dateien ein
 define('__ROOT__', dirname(dirname(__FILE__)));
-require_once(__ROOT__.'/src/models/HumanMove.php');
+require_once(__ROOT__.'/src/game/HumanMove.php');
 require_once(__ROOT__.'/src/helpers/Helper.php');
-require_once(__ROOT__.'/src/models/Board.php');
-require_once(__ROOT__.'/src/models/ComputerMove.php');
+require_once(__ROOT__.'/src/game/Board.php');
+require_once(__ROOT__.'/src/game/ComputerMove.php');
 require_once(__ROOT__.'/src/controllers/GameController.php');
 require_once(__ROOT__.'/src/controllers/UserController.php');
 
