@@ -20,6 +20,7 @@ $_SERVER["REQUEST_METHOD"] === "POST" && init("POST");
 // --> Lösung für Züge durch Computergegener
 
 function init($method) {
+    // Führe Login durch
     if (isset($_POST['login'])) {
         $username = $_POST['username'];  
         $password = $_POST['password'];      
@@ -27,11 +28,13 @@ function init($method) {
         UserController::loginUser($username, $password);
     }
 
+    // Führe Registrierung durch
     if (isset($_POST['register'])) {
         $username = $_POST['username'];  
         $password = $_POST['password'];      
         $confirm_password = $_POST['confirm_password'];
 
+        // Leite Registrierung nur ein, wenn die Passwörter übereinstimmen  
         if ($password === $confirm_password) {
             UserController::createUser($username, $password);
         } else {
@@ -40,11 +43,15 @@ function init($method) {
         }
     }
     
+    // Erzeuge Spielfeld, falls noch nicht geschehen und initialisiere die Rundenanzahl
+    // mit -1 (das Anzeigen des leeren Feldes wird die Rundenanzahl auf 0, also vor dem 
+    // ersten Zug erhöhen) 
     if (!isset($_SESSION["board"])) {
         $_SESSION["board"] = (new Board())->new();
         $_SESSION["round"] = -1;
     }
 
+    // Erzeuge Instanz von GameController und führe #run mit der entsprechenden Methode aus
     $gameController = new GameController($_SESSION["board"], $_SESSION["round"]);
     $gameController->run($method);
 }
