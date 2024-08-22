@@ -16,7 +16,7 @@
       <div class="row justify-content-center">
         <div class="col-md-4">
           <h2 class="text-center mt-5">Login</h2>
-          <form action="../controllers/login_controller.php" method="POST">
+          <form action="../router.php" method="POST">
             <div class="form-group">
               <label for="username">Benutzername</label>
               <input type="text" class="form-control" id="username" name="username" required>
@@ -26,7 +26,7 @@
               <input type="password" class="form-control" id="password" name="password" required>
             </div>
             <div class="form-group">
-              <button type="submit" class="btn btn-primary btn-block mt-2">Login</button>
+              <button type="submit" name="login" class="btn btn-primary btn-block mt-2">Login</button>
             </div>
             <div class="form-group text-center">
               <a href="register_form.php" class="btn btn-link">Registrieren</a>
