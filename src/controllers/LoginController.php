@@ -22,7 +22,6 @@ class Login {
 			// Überprüfen, ob das eingegebene Passwort mit dem gehashten Passwort übereinstimmt
 			if (password_verify($password, $hashed_password)) {
 				// Passwort stimmt überein, Login erfolgreich
-				session_start();
 				$_SESSION["login"] = "true";
 				header('Location: /tic-tac-toe/app/src/views/options_view.php');
 				exit();
