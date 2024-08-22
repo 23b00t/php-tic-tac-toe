@@ -21,6 +21,7 @@ class DatabaseHelper {
 
                 // Parameter an die vorbereitete Anweisung binden
                 // https://www.w3schools.com/php/php_mysql_prepared_statements.asp
+                // ... -> splat operator. Inhalt des Arrays auspacken
                 $stmt->bind_param(...$params);
 
                 // Die vorbereitete Anweisung ausführen

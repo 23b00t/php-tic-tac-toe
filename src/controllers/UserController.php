@@ -16,6 +16,7 @@ class UserController {
 		// prüfen, ob der Benutzer existiert
 		if ($result && $result->num_rows > 0) {
 			// gehastes Passwort abrufen
+			// #fetch_assoc: Liefert einen Datensatz als assoziatives Array
 			$row = $result->fetch_assoc();
 			$hashed_password = $row['password'];
 
