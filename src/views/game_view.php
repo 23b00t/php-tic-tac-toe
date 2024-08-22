@@ -1,6 +1,12 @@
 <!-- INFO: HTML Struktur des Spielfelds -->
 
-<?php require_once __DIR__ . '/process.php' ?>
+<?php 
+require_once __DIR__ . '/../router.php';
+
+if(!isset($_SESSION['login'])) {
+  header("Location: ../../public/index.php");
+} 
+?>
 
 <!DOCTYPE html>
 <html>
@@ -19,18 +25,18 @@
     <!-- Spielfeld -->
     <div class='container mt-4 d-flex justify-content-center align-items-center'>
       <table class="border border-black border-3">
-        <form action='process.php' method='post'>
+        <form action='../router.php' method='post'>
           <!-- Rufe init mit der Methode GET in process.php auf -->
           <?php init("GET") ?>
           <!-- Simuliere POST, wenn der Computer am Zug ist und noch kein Gewinn vorliegt -->
-          <?php isset($_SESSION["modus"]) && isEven($_SESSION["round"] + $_SESSION["beginner"]) && !isset($_SESSION["winMsg"]) && init("POST") ?>
+          <?php isset($_SESSION["modus"]) && Helper::isEven($_SESSION["round"] + $_SESSION["beginner"]) && !isset($_SESSION["winMsg"]) && init("POST") ?>
         </form>
       </table>
     </div>
  
     <!-- Rücksetzbutton   -->
     <div class='container mt-4 d-flex justify-content-center align-items-center'>
-      <form action='process.php' method='post'>
+        <form action='../router.php' method='post'>
         <button type='submit' name='reset' class="btn btn-outline-success m-4"> Zurücksetzen </button>
       </form>
     </div>
