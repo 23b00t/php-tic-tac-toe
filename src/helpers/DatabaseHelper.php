@@ -20,6 +20,7 @@ class DatabaseHelper {
                 $stmt = $conn->prepare($sql);
 
                 // Parameter an die vorbereitete Anweisung binden
+                // https://www.w3schools.com/php/php_mysql_prepared_statements.asp
                 $stmt->bind_param(...$params);
 
                 // Die vorbereitete Anweisung ausführen
