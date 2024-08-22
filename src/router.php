@@ -11,8 +11,7 @@ require_once(__ROOT__.'/src/helpers/Helper.php');
 require_once(__ROOT__.'/src/models/Board.php');
 require_once(__ROOT__.'/src/models/ComputerMove.php');
 require_once(__ROOT__.'/src/controllers/GameController.php');
-require_once(__ROOT__.'/src/controllers/LoginController.php');
-require_once(__ROOT__.'/src/controllers/RegisterController.php');
+require_once(__ROOT__.'/src/controllers/UserController.php');
 
 // Bei POST an verarbeiten.php, rufe init mit POST als Argument auf 
 $_SERVER["REQUEST_METHOD"] === "POST" && init("POST");
@@ -25,7 +24,7 @@ function init($method) {
         $username = $_POST['username'];  
         $password = $_POST['password'];      
 
-        Login::loginUser($username, $password);
+        UserController::loginUser($username, $password);
     }
 
     if (isset($_POST['register'])) {
@@ -34,7 +33,7 @@ function init($method) {
         $confirm_password = $_POST['confirm_password'];
 
         if ($password === $confirm_password) {
-            Register::createUser($username, $password);
+            UserController::createUser($username, $password);
         } else {
             header('Location: views/register_form.php?error=Passwörter%20stimmen%20nicht%20überein');
             exit();
