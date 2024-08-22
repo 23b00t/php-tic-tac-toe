@@ -30,6 +30,7 @@ class Helper {
 
 	public static function signOut() {
 		session_unset();
+		session_destroy();
 		header("location: ../public/index.php");
 		exit();
 	}
