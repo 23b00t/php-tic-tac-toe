@@ -54,7 +54,12 @@ function init($method) {
     }
 
     // Erzeuge Instanz von GameController und führe #run mit der entsprechenden Methode aus
-    $gameController = new GameController($_SESSION["board"], $_SESSION["round"]);
+    if (!isset($_SESSION["game_controller"])) {
+        $gameController = new GameController($_SESSION["board"], $_SESSION["round"]);
+    } else {
+        $gameController = $_SESSION["game_controller"];
+    }
+
     $gameController->run($method);
 }
 ?>

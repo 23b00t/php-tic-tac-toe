@@ -24,6 +24,7 @@ class Helper {
 		unset($_SESSION['winner']);
 		unset($_SESSION['modus']);
 		unset($_SESSION['beginner']);
+		unset($_SESSION['game_controller']);
 		header("location: /tic-tac-toe/app/src/views/options_view.php");
 		exit();
 	}
