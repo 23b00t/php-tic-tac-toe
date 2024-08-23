@@ -54,7 +54,7 @@ class UserController {
         try {
             DatabaseHelper::prepareAndExecute($conn, $sql, $params);
 			// Erfolgreiches Einfügen
-			header('Location: ../public/index.php');
+			header('Location: views/login_form.php?msg=Account%20erfolgreich%20erstellt');
 			exit();
 		} catch (mysqli_sql_exception $e) {
 			if ($e->getCode() === 1062) {
