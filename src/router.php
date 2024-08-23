@@ -22,6 +22,7 @@ $_SERVER["REQUEST_METHOD"] === "POST" && init("POST");
 function init($method) {
     // Führe Login durch
     if (isset($_POST['login'])) {
+        Helper::checkCSRFToken();
         $username = $_POST['username'];  
         $password = $_POST['password'];      
 
@@ -30,6 +31,7 @@ function init($method) {
 
     // Führe Registrierung durch
     if (isset($_POST['register'])) {
+        Helper::checkCSRFToken();
         $username = $_POST['username'];  
         $password = $_POST['password'];      
         $confirm_password = $_POST['confirm_password'];

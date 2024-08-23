@@ -1,5 +1,10 @@
 <!-- INFO: User login -->
 
+<?php 
+require_once __DIR__ . '/../helpers/Helper.php';
+$csrf_token = Helper::generateCSRFToken() 
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -25,6 +30,8 @@
               <label for="password">Passwort</label>
               <input type="password" class="form-control" id="password" name="password" required>
             </div>
+            <!-- csrf_token einfügen -->
+            <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
             <div class="form-group">
               <button type="submit" name="login" class="btn btn-primary btn-block mt-2">Login</button>
             </div>
