@@ -5,7 +5,9 @@ session_start();
 if(!isset($_SESSION["login"])) {
   header("Location: ../../public/index.php");
   exit();
-} 
+} else {
+  session_regenerate_id(true);
+}
 ?>
 
 <!DOCTYPE html>
