@@ -61,7 +61,7 @@ class Helper {
 
 	public static function generateCSRFToken() {
 		// Session starten
-		session_start();
+		session_status() === PHP_SESSION_NONE && session_start();
 		// CSRF-Token generieren, falls es nicht bereits existiert
 		if (empty($_SESSION['csrf_token'])) {
 			$_SESSION['csrf_token'] = bin2hex(random_bytes(32));

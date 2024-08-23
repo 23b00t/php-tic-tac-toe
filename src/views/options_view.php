@@ -1,7 +1,8 @@
 <!-- INFO: HTML Struktur der Gegenerwahl Seite -->
 
 <?php 
-session_start();
+session_status() === PHP_SESSION_NONE && session_start();
+
 if(!isset($_SESSION["login"])) {
   header("Location: ../../public/index.php");
   exit();
