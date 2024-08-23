@@ -43,7 +43,7 @@ class UserController {
 		$conn = DatabaseHelper::connect("user_write", "password_write");
 
 		// Passwort mit Standardeinstellungen hashen
-        $password_hashed = password_hash($password, PASSWORD_DEFAULT);
+        $password_hashed = password_hash($password, PASSWORD_DEFAULT, ["cost" => 12]);
 
         // SQL-Abfrage und Parameter definieren
         $sql = 'INSERT INTO user (username, password) VALUES (?, ?)';
