@@ -63,4 +63,3 @@ function init($method)
 
     $gameController->run($method);
 }
-?>

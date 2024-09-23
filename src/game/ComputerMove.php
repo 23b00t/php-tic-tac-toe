@@ -27,14 +27,12 @@ class ComputerMove
         // Falls der Spieler beginnt, muss vor seinem 3. Zug auf Gewinn durch den Menschen geprüft werden
         if ($round > 2) {
             // Überprüfe, ob Computer in diesem Zug gewinnen kann und ziehe entsprechend
-            $moveWin = $this->checkMove('x', $board, $indexes);
-            if ($moveWin) { return $moveWin;
-            }
+            $moveWin = $this->_checkMove('x', $board, $indexes);
+            if ($moveWin) return $moveWin;
 
             // Überprüfen, ob Gegener im nächsten Zug gewinnen kann; falls ja Zug vereiteln  
-            $move = $this->checkMove('o', $board, $indexes);
-            if ($move) { return $move;
-            }
+            $move = $this->_checkMove('o', $board, $indexes);
+            if ($move) return $move;
         }
 
         // Ansonsten mache einen Zufallszug.
@@ -50,7 +48,7 @@ class ComputerMove
 
     // Durchlaufe alle freien Felder und überprüfe, ob durch ein Setzten an dieser
     // Stelle ein Gewinn möglich ist
-    private function checkMove($sign, $board, $indexes)
+    private function _checkMove($sign, $board, $indexes)
     {
         foreach ($indexes as $point) {
             // Clone originales Spielfeldarray, um Komplikationen durch fortlaufende
@@ -71,4 +69,3 @@ class ComputerMove
         return false;
     }
 }
-?>
