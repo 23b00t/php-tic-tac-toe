@@ -36,9 +36,7 @@ class DatabaseHelper {
 
     public function __destruct() {
         // Verbindung zur Datenbank schließen
-        if ($this->conn) {
-            $this->conn->close();
-            echo "Datenbankverbindung geschlossen.\n";
-        }
+        // Null-safe operator
+        $this->conn?->close();
     }
 }
