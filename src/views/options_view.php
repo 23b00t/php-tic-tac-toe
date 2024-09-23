@@ -4,10 +4,10 @@
 session_status() === PHP_SESSION_NONE && session_start();
 
 if(!isset($_SESSION["login"])) {
-  header("Location: ../../public/index.php");
-  exit();
+    header("Location: ../../public/index.php");
+    exit();
 } else {
-  session_regenerate_id(true);
+    session_regenerate_id(true);
 }
 ?>
 
@@ -36,8 +36,8 @@ if(!isset($_SESSION["login"])) {
     <h2 class="text-center"> Tic-Tac-Toe </h2>
     <h4 class="mt-4 text-center"> Wähle einen Gegner: </h4>
 
-	<!-- Radio Buttons zum Auswählen, ob gegen Computer gespielt werden soll -->
-	<!-- POST an process.php, wo dann das Spiel initialisiert wird   -->
+    <!-- Radio Buttons zum Auswählen, ob gegen Computer gespielt werden soll -->
+    <!-- POST an process.php, wo dann das Spiel initialisiert wird   -->
     <div class="container mt-4 d-flex justify-content-center align-items-center" >
       <form action="../router.php" method="post">
         <div class="form-check">

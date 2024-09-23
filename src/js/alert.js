@@ -1,4 +1,5 @@
-function showAlertFromUrl() {
+function showAlertFromUrl()
+{
     // Create hash from window.location.search (?key=value) 
     const urlParams = new URLSearchParams(window.location.search);
     // Get value from key error or msg

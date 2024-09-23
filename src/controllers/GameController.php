@@ -1,9 +1,11 @@
 <?php
 // INFO: Steuere das Spiel  
 
-class GameController {
+class GameController
+{
     // Initialisiere Spiel mit Board und Runde. Erzeuge benötigte Instanzen anderer Klassen.  
-    function __construct(private $board, private $round) {
+    function __construct(private $board, private $round)
+    {
         $this->board = $board;
         $this->round = $round;
         $this->boardObj = new Board();
@@ -12,7 +14,8 @@ class GameController {
     }
 
     // Durchlaufe eine Runde  
-    public function run($method) {
+    public function run($method)
+    {
         if ($method === "POST") {
             // Spielfeld zurücksetzen, wenn entsprechender Button geklickt wurde
             isset($_POST["reset"]) && Helper::resetGame();

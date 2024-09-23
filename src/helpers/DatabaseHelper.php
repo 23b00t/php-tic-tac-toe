@@ -1,40 +1,43 @@
 <?php
-class DatabaseHelper {
-        public static function connect($dbuser, $dbpassword) {
-                $servername = "127.0.0.1";
-                $dbname = "tic_tac_toe";
+class DatabaseHelper
+{
+    public static function connect($dbuser, $dbpassword)
+    {
+            $servername = "127.0.0.1";
+            $dbname = "tic_tac_toe";
 
-                // Verbindung herstellen
-                $conn = new mysqli($servername, $dbuser, $dbpassword, $dbname);
+            // Verbindung herstellen
+            $conn = new mysqli($servername, $dbuser, $dbpassword, $dbname);
 
-                // Verbindung prüfen
-                if ($conn->connect_error) {
-                    die("Verbindung fehlgeschlagen: " . $conn->connect_error . "\n");
-                }
-
-                return $conn;
+            // Verbindung prüfen
+        if ($conn->connect_error) {
+            die("Verbindung fehlgeschlagen: " . $conn->connect_error . "\n");
         }
 
-        public static function prepareAndExecute($conn, $sql, $params) {
-                // Die SQL-Abfrage vorbereiten
-                $stmt = $conn->prepare($sql);
+            return $conn;
+    }
 
-                // Parameter an die vorbereitete Anweisung binden
-                // https://www.w3schools.com/php/php_mysql_prepared_statements.asp
-                // ... -> splat operator. Inhalt des Arrays auspacken
-                $stmt->bind_param(...$params);
+    public static function prepareAndExecute($conn, $sql, $params)
+    {
+            // Die SQL-Abfrage vorbereiten
+            $stmt = $conn->prepare($sql);
 
-                // Die vorbereitete Anweisung ausführen
-                $stmt->execute();
+            // Parameter an die vorbereitete Anweisung binden
+            // https://www.w3schools.com/php/php_mysql_prepared_statements.asp
+            // ... -> splat operator. Inhalt des Arrays auspacken
+            $stmt->bind_param(...$params);
 
-                // Das Ergebnis abrufen
-                $result = $stmt->get_result();
+            // Die vorbereitete Anweisung ausführen
+            $stmt->execute();
 
-                // Ressourcen freigeben
-                $stmt->close();
-                $conn->close();
+            // Das Ergebnis abrufen
+            $result = $stmt->get_result();
 
-                return $result;
-        }
+            // Ressourcen freigeben
+            $stmt->close();
+            $conn->close();
+
+            return $result;
+    }
 }
 ?>

@@ -4,8 +4,8 @@
 require_once __DIR__ . '/../router.php';
 
 if(!isset($_SESSION['login'])) {
-  header("Location: ../../public/index.php");
-  exit();
+    header("Location: ../../public/index.php");
+    exit();
 } 
 ?>
 
@@ -44,7 +44,7 @@ if(!isset($_SESSION['login'])) {
 
     <!-- Feld für Nachricht über Spielausgang   -->
     <div class="container d-flex justify-content-center align-items-center">
-      <?= isset($_SESSION["winMsg"]) ? $_SESSION["winMsg"] : "" ?>
+      <?php echo isset($_SESSION["winMsg"]) ? $_SESSION["winMsg"] : "" ?>
     </div>
 
     <!-- <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js' integrity='sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz' crossorigin='anonymous'></script> -->

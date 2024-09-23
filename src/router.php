@@ -6,12 +6,12 @@ session_status() === PHP_SESSION_NONE && session_start();
 
 // Binde Dateien ein
 define('__ROOT__', dirname(dirname(__FILE__)));
-require_once(__ROOT__.'/src/game/HumanMove.php');
-require_once(__ROOT__.'/src/helpers/Helper.php');
-require_once(__ROOT__.'/src/game/Board.php');
-require_once(__ROOT__.'/src/game/ComputerMove.php');
-require_once(__ROOT__.'/src/controllers/GameController.php');
-require_once(__ROOT__.'/src/controllers/UserController.php');
+require_once __ROOT__.'/src/game/HumanMove.php';
+require_once __ROOT__.'/src/helpers/Helper.php';
+require_once __ROOT__.'/src/game/Board.php';
+require_once __ROOT__.'/src/game/ComputerMove.php';
+require_once __ROOT__.'/src/controllers/GameController.php';
+require_once __ROOT__.'/src/controllers/UserController.php';
 
 // Bei POST an verarbeiten.php, rufe init mit POST als Argument auf 
 $_SERVER["REQUEST_METHOD"] === "POST" && init("POST");
@@ -19,7 +19,8 @@ $_SERVER["REQUEST_METHOD"] === "POST" && init("POST");
 // HACK: Simuliere POST und GET per übergabe als String Argument an run
 // --> Lösung für Züge durch Computergegener
 
-function init($method) {
+function init($method)
+{
     // Führe Login durch
     if (isset($_POST['login'])) {
         Helper::checkCSRFToken();
