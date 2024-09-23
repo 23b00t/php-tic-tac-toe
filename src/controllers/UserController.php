@@ -6,14 +6,14 @@ class UserController
     public static function loginUser($username, $password)
     {
         // Datenbank verbindung mit dem Nutzer user_read herstellen
-        $conn = DatabaseHelper::connect("user_read", "password");
+        $db = new DatabaseHelper("user_read", "password");
 
         // Die SQL-Abfrage und die Parameter definieren
         $sql = 'SELECT password FROM user WHERE username = ?';
         $params = ['s', $username];  // 's' steht für den Typ (String)
 
         // Die vorbereitete Anweisung ausführen
-        $result = DatabaseHelper::prepareAndExecute($conn, $sql, $params);
+        $result = $db->prepareAndExecute($sql, $params);
 
         // prüfen, ob der Benutzer existiert
         if ($result && $result->num_rows > 0) {
@@ -43,7 +43,7 @@ class UserController
     public static function createUser($username, $password)
     {
         // Datenbank verbindung mit dem Nutzer user_write herstellen
-        $conn = DatabaseHelper::connect("user_write", "password_write");
+        $db = new DatabaseHelper("user_write", "password_write");
 
         // Passwort mit Standardeinstellungen hashen
         $password_hashed = password_hash($password, PASSWORD_DEFAULT, ["cost" => 12]);
@@ -55,7 +55,7 @@ class UserController
         // Versuchen den Benutzer anzulegen. Wenn Fehler auftritt, z. B. Verstoß gegen
         // UNIQUE-Constraint catch Block ausführen
         try {
-            DatabaseHelper::prepareAndExecute($conn, $sql, $params);
+            $db->prepareAndExecute($sql, $params);
             // Erfolgreiches Einfügen
             header('Location: views/login_form.php?msg=Account%20erfolgreich%20erstellt');
             exit();
