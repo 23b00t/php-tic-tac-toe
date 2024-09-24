@@ -1,7 +1,7 @@
 <?php
 class DatabaseHelper
 {
-    private $__conn;
+    private $_conn;
 
     public function __construct($dbuser, $dbpassword)
     {
